@@ -31,10 +31,12 @@ pipeline {
 
     stage('Publish') {
       steps {
+        script {
+           def VERSION_NAME = sh(returnStdout: true, script: 'cat VERSION_NAME').trim()
+        }
         archiveArtifacts 'rootfs-builder/out/*_rootfs.tar.gz'
         withDockerContainer(image: 'dvitali/pixelc-build-container:6'){
           echo "Deleting release from github before creating new one"
-          def VERSION_NAME = sh(returnStdout: true, script: 'cat VERSION_NAME').trim()
           sh "github-release delete --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${VERSION_NAME}"
 
           echo "Creating a new release in github"

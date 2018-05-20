@@ -39,13 +39,13 @@ pipeline {
           sh ". /etc/environment"
           sh "echo $PATH"
           echo "Deleting release from github before creating new one"
-          sh "github-release delete --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME}"
+          sh "/opt/go/bin/github-release delete --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME}"
 
           echo "Creating a new release in github"
-          sh "github-release release --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${VERSION_NAME}"
+          sh "/opt/go/bin/github-release release --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${VERSION_NAME}"
 
           echo "Uploading the artifacts into github"
-          sh "github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${DISTRO}-${VERSION_NAME}_rootfs.tar.gz --file out/ubuntu_rootfs.tar.gz"
+          sh "/opt/go/bin/github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${DISTRO}-${VERSION_NAME}_rootfs.tar.gz --file out/ubuntu_rootfs.tar.gz"
         }
       }
     }

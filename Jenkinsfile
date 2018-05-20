@@ -36,6 +36,8 @@ pipeline {
         }
         archiveArtifacts 'rootfs-builder/out/*_rootfs.tar.gz'
         withDockerContainer(image: 'dvitali/pixelc-build-container:7'){
+          sh ". /etc/environment
+          sh "echo $PATH"
           echo "Deleting release from github before creating new one"
           sh "github-release delete --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME}"
 

@@ -45,7 +45,7 @@ pipeline {
           sh "/opt/go/bin/github-release release --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${VERSION_NAME}"
 
           echo "Uploading the artifacts into github"
-          sh "/opt/go/bin/github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${DISTRO}-${VERSION_NAME}_rootfs.tar.gz --file out/ubuntu_rootfs.tar.gz"
+          sh "/opt/go/bin/github-release upload --user ${GITHUB_ORGANIZATION} --repo ${GITHUB_REPO} --tag ${env.VERSION_NAME} --name ${DISTRO}-${VERSION_NAME}_rootfs.tar.gz --file rootfs-builder/out/ubuntu_rootfs.tar.gz"
         }
       }
     }
